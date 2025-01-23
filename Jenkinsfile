@@ -5,9 +5,21 @@ pipeline {
        }
 } 
     stages {
-        stage('Checkout From SCM') {
+        stage('Build') {
             steps {
-                checkout scmGit(branches: [[name: 'main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/mp09js8174/Devops-Project.git']])
+                echo "----------- build started ----------"
+                 sh 'mvn clean deploy -Dmaven.test.skip=true'
+                echo "----------- build complted ----------"
+
+            }
+        }
+
+          stage('Test') {
+            steps {
+                echo "----------- Unit Test Started ----------"
+                 sh 'mvn surefire-report:report'
+                echo "----------- Unit Test complted ----------"
+
             }
         }
     }
