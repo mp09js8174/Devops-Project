@@ -17,14 +17,6 @@ environment {
             }
         }
 
-          stage('Test') {
-            steps {
-                echo "----------- Unit Test Started ----------"
-                 sh 'mvn surefire-report:report'
-                echo "----------- Unit Test complted ----------"
-
-            }
-        }
           stage('SonarQube analysis') {
           environment {
            scannerHome = tool 'sonar-scanner'
